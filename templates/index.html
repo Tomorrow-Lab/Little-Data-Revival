@@ -5,7 +5,8 @@
     var submit_form = function(e) {
       $.getJSON($SCRIPT_ROOT + '/_add_numbers', {
         a: $('input[name="a"]').val(),
-        b: $('input[name="b"]').val()
+        b: $('input[name="b"]').val(),
+	c: $('input[name="c"]').val()
       }, function(data) {
         $('#result').text(data.result);
         $('input[name=a]').focus().select();
@@ -13,21 +14,43 @@
       return false;
     };
 
+    var submit_text = function(e) {
+      $.getJSON($SCRIPT_ROOT + '/_push_text', {
+        t: $('input[name="t"]').val(),
+      });
+      return false;
+    };
+
     $('a#calculate').bind('click', submit_form);
 
-    $('input[type=text]').bind('keydown', function(e) {
+    $('a#calculate').bind('keydown', function(e) {
       if (e.keyCode == 13) {
         submit_form(e);
+      }
+    });
+
+    $('a#pushText').bind('click', submit_text);
+
+    $('a#pushText').bind('keydown', function(e) {
+      if (e.keyCode == 13) {
+        submit_text(e);
       }
     });
 
     $('input[name=a]').focus();
   });
 </script>
-<h1>jQuery Example</h1>
+
+<h1>Choose a Color:</h1>
 <p>
-  <input type="text" size="5" name="a"> +
-  <input type="text" size="5" name="b"> =
-  <span id="result">?</span>
-<p><a href=# id="calculate">calculate server side</a>
+  <input type="text" size="5" name="a">
+  <input type="text" size="5" name="b">
+  <input type="text" size="5" name="c">
+  <span id="result"></span>
+<p><a href=# id="calculate">Push Color</a>
+
+<h1>Enter Text:</h1>
+<p>
+  <input type="text" size="5" name="t">
+<p><a href=# id="pushText">Push Text</a>
 {% endblock %}
