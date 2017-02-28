@@ -8,8 +8,13 @@
     :copyright: (c) 2015 by Armin Ronacher.
     :license: BSD, see LICENSE for more details.
 """
+import sys
+sys.path.insert(0, '/home/pi/Documents/')
+
+import DarkSky
 from flask import Flask, jsonify, render_template, request
 import serial, time
+
 ser = serial.Serial('/dev/ttyACM0',9600)
 app = Flask(__name__)
 
