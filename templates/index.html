@@ -15,8 +15,11 @@
     };
 
     var submit_text = function(e) {
-      $.getJSON($SCRIPT_ROOT + '/_push_text', {
-        t: $('input[name="t"]').val(),
+      $.getJSON($SCRIPT_ROOT + '/_get_weather', {
+        t: $('input[name="t"]').val()
+      }, function(data) {
+	$('#current').text(data.result);
+	$('input[name=t]').focus().select();
       });
       return false;
     };
@@ -29,9 +32,9 @@
       }
     });
 
-    $('a#pushText').bind('click', submit_text);
+    $('a#getWeather').bind('click', submit_text);
 
-    $('a#pushText').bind('keydown', function(e) {
+    $('a#getWeather').bind('keydown', function(e) {
       if (e.keyCode == 13) {
         submit_text(e);
       }
@@ -49,8 +52,9 @@
   <span id="result"></span>
 <p><a href=# id="calculate">Push Color</a>
 
-<h1>Enter Text:</h1>
+<h1>Enter an Address:</h1>
 <p>
-  <input type="text" size="5" name="t">
-<p><a href=# id="pushText">Push Text</a>
+  <input type="text" size="50" name="t">
+  <span id="current"></span>
+<p><a href=# id="getWeather">Get Weather</a>
 {% endblock %}
